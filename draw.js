@@ -15,6 +15,33 @@ window.onload = function() {
     canvas.onmouseup = stopDrawing;
     canvas.onmouseout = stopDrawing;
     canvas.onmousemove = draw;
+
+
+    var canvas = document.getElementById("drawingCanvas");
+    var context = canvas.getContext("2d");
+// Set the line width and color (for all the lines).
+    context.lineWidth = 20;
+    context.strokeStyle = "rgb(205,40,40)";
+// Draw the first line, with the standard butt ending.
+    context.moveTo(10,50);
+    context.lineTo(400,50);
+    context.lineCap = "butt";
+    context.stroke();
+// Draw the second line, with a round cap.
+    context.beginPath();
+    context.moveTo(10,120);
+    context.lineTo(400,120);
+    context.lineCap = "round";
+    context.stroke();
+// Draw the third line, with a square cap.
+    context.beginPath();
+    context.moveTo(10,190);
+    context.lineTo(400,190);
+    context.lineCap = "square";
+    context.stroke();
+
+
+
 };
 
 // Keep track of the previous clicked <img> element for color.
