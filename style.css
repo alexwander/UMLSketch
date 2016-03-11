@@ -26,6 +26,7 @@ body {
 
 .CanvasContainer {
     clear: both;
+    border: 1px solid #7B899B;
 }
 
 canvas {
