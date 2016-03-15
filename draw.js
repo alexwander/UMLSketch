@@ -7,6 +7,19 @@ function Circle(x, y, radius, color) {
     this.isSelected = false;
 }
 
+// This function stores the details for a single circle.
+function Sqar(x, y, color) {
+    this.x = x;
+    this.y = y;
+
+    this.color = color;
+    this.isSelected = false;
+}
+
+
+
+
+
 // This array hold all the circles on the canvas.
 var circles = [];
 
@@ -25,7 +38,7 @@ window.onload = function() {
 
 function addRandomCircle() {
     // Give the circle a random size and position.
-    var radius = randomFromTo(10, 60);
+    var radius = 50;
     var x = randomFromTo(0, canvas.width);
     var y = randomFromTo(0, canvas.height);
 
@@ -43,6 +56,26 @@ function addRandomCircle() {
     drawCircles();
 }
 
+function addRandomSqare() {
+
+    var x = randomFromTo(0, canvas.width);
+    var y = randomFromTo(0, canvas.height);
+
+    // Give the circle a random color.
+    var colors = ["green", "blue", "red", "yellow", "magenta", "orange", "brown", "purple", "pink"];
+    var color = colors[randomFromTo(0, 8)];
+
+    var rect = new Sqar(x, y, color);
+
+    circles.push(rect);
+// Redraw the canvas.
+    drawRect();
+}
+
+
+
+
+
 function clearCanvas() {
     // Remove all the circles.
     circles = [];
@@ -51,15 +84,29 @@ function clearCanvas() {
     drawCircles();
 }
 
-function drawCircles() {
 
+function drawRect() {
     var bw = 40;
     var bh = 80;
     var p = 1;
     var cw = bw + (p*2) + 1;
     var ch = bh + (p*2) + 1;
 
+    for (var x = 0; x <= bw; x += 40) {
+        context.moveTo(0.5 + x + p, p);
+        context.lineTo(0.5 + x + p, bh + p);
+    }
 
+
+    for (var x = 0; x <= bh; x += 40) {
+        context.moveTo(p, 0.5 + x + p);
+        context.lineTo(bw + p, 0.5 + x + p);
+    }
+
+
+}
+
+function drawCircles() {
 
     // Clear the canvas.
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -68,26 +115,13 @@ function drawCircles() {
     for(var i=0; i<circles.length; i++) {
         var circle = circles[i];
 
-        for (var x = 0; x <= bw; x += 40) {
-            context.moveTo(0.5 + x + p, p);
-            context.lineTo(0.5 + x + p, bh + p);
-        }
 
-
-        for (var x = 0; x <= bh; x += 40) {
-            context.moveTo(p, 0.5 + x + p);
-            context.lineTo(bw + p, 0.5 + x + p);
-        }
-
-
-
-
-        //// Draw the circle.
-        //context.globalAlpha = 0.85;
-        //context.beginPath();
-        //context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
-        ////context.fillStyle = circle.color;
-        //context.strokeStyle = "black";
+        // Draw the circle.
+        context.globalAlpha = 0.85;
+        context.beginPath();
+        context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+        //context.fillStyle = circle.color;
+        context.strokeStyle = "black";
 
         if (circle.isSelected) {
             context.lineWidth = 2;
@@ -99,6 +133,7 @@ function drawCircles() {
         context.stroke();
     }
 }
+
 
 var previousSelectedCircle;
 
